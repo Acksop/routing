@@ -101,6 +101,46 @@ class Route implements \Serializable
             $this->compiled = $data['compiled'];
         }
     }
+    
+    /**
+     * PHP 8.1 new update of deprecated unserialize method for \Serializable
+     */
+    public function __serialize()
+    {
+        return serialize([
+            'path' => $this->path,
+            'host' => $this->host,
+            'defaults' => $this->defaults,
+            'requirements' => $this->requirements,
+            'options' => $this->options,
+            'schemes' => $this->schemes,
+            'methods' => $this->methods,
+            'condition' => $this->condition,
+            'compiled' => $this->compiled,
+        ]);
+    }
+
+    /**
+     * PHP 8.1 new update of deprecated unserialize method for \Serializable
+     */
+    public function __unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+        $this->path = $data['path'];
+        $this->host = $data['host'];
+        $this->defaults = $data['defaults'];
+        $this->requirements = $data['requirements'];
+        $this->options = $data['options'];
+        $this->schemes = $data['schemes'];
+        $this->methods = $data['methods'];
+
+        if (isset($data['condition'])) {
+            $this->condition = $data['condition'];
+        }
+        if (isset($data['compiled'])) {
+            $this->compiled = $data['compiled'];
+        }
+    }    
 
     /**
      * Returns the pattern for the path.
