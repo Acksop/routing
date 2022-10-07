@@ -51,7 +51,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      *
      * @return \ArrayIterator|Route[] An \ArrayIterator object for iterating over routes
      */
-    public function getIterator()
+    public function getIterator() : \IteratorAggregate
     {
         return new \ArrayIterator($this->routes);
     }
