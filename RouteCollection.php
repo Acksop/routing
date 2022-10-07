@@ -51,7 +51,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      *
      * @return \ArrayIterator|Route[] An \ArrayIterator object for iterating over routes
      */
-    public function getIterator()
+    public function getIterator() : \ArrayIterator
     {
         return new \ArrayIterator($this->routes);
     }
@@ -61,7 +61,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      *
      * @return int The number of routes
      */
-    public function count()
+    public function count() : int
     {
         return \count($this->routes);
     }
@@ -72,7 +72,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      * @param string $name  The route name
      * @param Route  $route A Route instance
      */
-    public function add($name, Route $route)
+    public function add($name, Route $route) : array
     {
         unset($this->routes[$name]);
 
