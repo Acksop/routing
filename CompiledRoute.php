@@ -88,6 +88,44 @@ class CompiledRoute implements \Serializable
     }
 
     /**
+     * PHP 8.1 new update serialize method of deprecated \Serializable
+     */
+    public function __serialize()
+    {
+        return serialize([
+            'vars' => $this->variables,
+            'path_prefix' => $this->staticPrefix,
+            'path_regex' => $this->regex,
+            'path_tokens' => $this->tokens,
+            'path_vars' => $this->pathVariables,
+            'host_regex' => $this->hostRegex,
+            'host_tokens' => $this->hostTokens,
+            'host_vars' => $this->hostVariables,
+        ]);
+    }
+
+    /**
+     * PHP 8.1 new update of deprecated serialize method for \Serializable
+     */
+    public function __unserialize($serialized)
+    {
+        if (\PHP_VERSION_ID >= 70000) {
+            $data = unserialize($serialized, ['allowed_classes' => false]);
+        } else {
+            $data = unserialize($serialized);
+        }
+
+        $this->variables = $data['vars'];
+        $this->staticPrefix = $data['path_prefix'];
+        $this->regex = $data['path_regex'];
+        $this->tokens = $data['path_tokens'];
+        $this->pathVariables = $data['path_vars'];
+        $this->hostRegex = $data['host_regex'];
+        $this->hostTokens = $data['host_tokens'];
+        $this->hostVariables = $data['host_vars'];
+    }
+    
+    /**
      * Returns the static prefix.
      *
      * @return string The static prefix
